@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class RandomWords extends StatefulWidget {
   const RandomWords({Key? key}) : super(key: key);
 
@@ -58,11 +57,21 @@ class _RandomWordsState extends State<RandomWords> {
             _suggestions[index].asPascalCase,
             style: _biggerFont,
           ),
-          trailing: Icon(    // NEW from here ...
+          trailing: Icon(
+            // NEW from here ...
             alreadySaved ? Icons.favorite : Icons.favorite_border,
             color: alreadySaved ? Colors.red : null,
             semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-          ),                 // to here.
+          ),
+          onTap: () {
+            setState(() {
+              if (alreadySaved) {
+                _saved.remove(_suggestions[index]);
+              } else {
+                _saved.add(_suggestions[index]);
+              }
+            });
+          }, // to here.
         );
       },
     );
